@@ -1,0 +1,51 @@
+%run data1.ipynb #i have a file data1.ipynb which has the data list.
+import random
+selection=random.choice(data)
+# selecting two random dictionaries from data list
+selection1=random.choice(data)
+# empty LIST creation for score calculation
+lists=[]
+def selected():
+    global selection,selection1,list
+    # comparing if both names are same and if they are same, selecting another name
+    while selection['name']==selection1['name']:
+        selection=random.choice(data)
+        selected()
+        break
+    #if both selected names are different
+    while selection['name']!=selection1['name']:
+        #showing the user selected names and guess the followers
+        print(f"Selected {selection['name']} , has {selection['follower_count']} and {selection1['name']} guess where  the  followers of {selection1['name']} higher or lower than {selection['name']}")
+        user_input=input("Enter high or low : ").lower()
+        #if user choose high and if followers are actually high, appending the name to list and continue playing the game
+        if user_input=='high':
+            if selection['follower_count']<selection1['follower_count']:
+                print(f"\n\n{selection1['name']} ,followers {selection1['follower_count']} has high followers ur are right\n\n")
+                selection=selection1
+                selection1=random.choice(data)
+                lists.append(selection)
+                selected()
+            else:
+                print(f"\n\nu are wrong {selection1['name']} has {selection1['follower_count']} and u lose\n\n")
+                print(f"your score is  : {len(lists)}")
+                break
+        #if user choose low and if followers are actually low ,appending the name to list and continue playing the game
+        elif user_input=='low':
+            if selection['follower_count']>selection1['follower_count']:
+                print(f"\n\n{selection1['name']} ,followers {selection1['follower_count']} has low followers ur are right\n\n")
+                selection=selection1
+                selection1=random.choice(data)
+                lists.append(selection)
+                selected()
+            else:
+                print(f"\n\nu are wrong {selection1['name']} has {selection1['follower_count']} and u lose\n\n")
+                print(f"Your score is  : {len(lists)}")
+                break
+        #if user enter either 'yes' nor 'no' this else statement will be printed
+        else:
+            print("Type the correct one")
+            
+        break
+selected()
+
+    
